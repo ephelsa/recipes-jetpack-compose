@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.github.ephelsa.yapecodechallenge.feature.home.HomeScreen
 import com.github.ephelsa.yapecodechallenge.feature.home.HomeViewModel
-import com.github.ephelsa.yapecodechallenge.feature.home.data.repository.RecipeRepositoryImpl
+import com.github.ephelsa.yapecodechallenge.feature.home.data.repository.RepositoryModule
 import com.github.ephelsa.yapecodechallenge.shared.theme.YapeCodeChallengeTheme
 
 class MainActivity : ComponentActivity() {
-    private val homeViewModel: HomeViewModel by viewModels<HomeViewModel> {
+    private val homeViewModel: HomeViewModel by viewModels {
         viewModelFactory {
             addInitializer(HomeViewModel::class) {
-                HomeViewModel(RecipeRepositoryImpl())
+                HomeViewModel(RepositoryModule.recipeRepository)
             }
         }
     }

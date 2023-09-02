@@ -1,5 +1,6 @@
 package com.github.ephelsa.yapecodechallenge.feature.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.ephelsa.yapecodechallenge.feature.home.data.model.Recipe
