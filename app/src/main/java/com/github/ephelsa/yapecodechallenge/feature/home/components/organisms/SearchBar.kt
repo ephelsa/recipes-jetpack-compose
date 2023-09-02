@@ -30,6 +30,7 @@ import com.github.ephelsa.yapecodechallenge.R
 import com.github.ephelsa.yapecodechallenge.feature.home.components.atoms.OutlinedTextField
 import com.github.ephelsa.yapecodechallenge.feature.home.components.molecules.SelectableItem
 import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
+import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
 internal fun <T : Any> SearchBar(
@@ -40,6 +41,8 @@ internal fun <T : Any> SearchBar(
     placeholderList: List<String>,
     textValue: String,
     onTextChange: ResultCallback<String>,
+    hideKeyboard: Boolean,
+    onClearFocus: VoidCallback,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -72,7 +75,9 @@ internal fun <T : Any> SearchBar(
                 modifier = Modifier.fillMaxWidth(0.8f),
                 value = textValue,
                 onValueChange = onTextChange,
-                placeholder = placeholderList[placeholderAnimation.value]
+                placeholder = placeholderList[placeholderAnimation.value],
+                hideKeyboard = hideKeyboard,
+                onClearFocus = onClearFocus,
             )
 
             Crossfade(targetState = isExpanded) {

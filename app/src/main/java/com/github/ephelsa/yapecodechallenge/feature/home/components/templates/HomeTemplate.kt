@@ -2,6 +2,8 @@ package com.github.ephelsa.yapecodechallenge.feature.home.components.templates
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -13,6 +15,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -34,6 +40,17 @@ internal fun <Filter : Any> HomeTemplate(
     areRecipesLoading: Boolean,
     onRecipeClick: ResultCallback<Recipe>
 ) {
+    var onHideKeyboard by remember { mutableStateOf(false) }
+
+    val hideKeyboardModifier = Modifier
+        .clickable(
+            indication = null,
+            interactionSource = remember {
+                MutableInteractionSource()
+            },
+            onClick = { onHideKeyboard = true }
+        )
+
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -42,25 +59,32 @@ internal fun <Filter : Any> HomeTemplate(
         Surface {
             Scaffold(
                 topBar = {
-                    AnimatedVisibility(visible = !areRecipesLoading, enter = expandVertically()) {
+                    AnimatedVisibility(
+                        visible = !areRecipesLoading,
+                        enter = expandVertically()
+                    ) {
                         SearchBar(
+                            modifier = hideKeyboardModifier,
                             filtersContent = filterOptions,
                             selectedFilter = selectedFilter,
                             onClickFilter = onClickFilter,
                             textValue = searchValue,
                             onTextChange = onSearchChange,
-                            placeholderList = searchPlaceholderList
+                            placeholderList = searchPlaceholderList,
+                            hideKeyboard = onHideKeyboard,
+                            onClearFocus = { onHideKeyboard = false }
                         )
                     }
                 },
                 content = { it ->
                     Column(
-                        modifier = Modifier.padding(
-                            top = it.calculateTopPadding(),
-                            bottom = it.calculateBottomPadding(),
-                            start = it.calculateStartPadding(LayoutDirection.Ltr) + 8.dp,
-                            end = it.calculateEndPadding(LayoutDirection.Ltr) + 8.dp,
-                        )
+                        modifier = hideKeyboardModifier
+                            .padding(
+                                top = it.calculateTopPadding(),
+                                bottom = it.calculateBottomPadding(),
+                                start = it.calculateStartPadding(LayoutDirection.Ltr) + 8.dp,
+                                end = it.calculateEndPadding(LayoutDirection.Ltr) + 8.dp,
+                            )
                     ) {
                         RecipesGrid(
                             recipes = recipes,

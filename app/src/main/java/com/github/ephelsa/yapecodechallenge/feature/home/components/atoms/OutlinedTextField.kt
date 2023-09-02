@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,14 +25,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
+import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
 internal fun OutlinedTextField(
     modifier: Modifier = Modifier,
     value: String,
     placeholder: String,
+    hideKeyboard: Boolean,
+    onClearFocus: VoidCallback,
     onValueChange: ResultCallback<String>,
 ) {
+    val focusManager = LocalFocusManager.current
     var hasFocus by remember { mutableStateOf(false) }
 
     val focused = hasFocus || value.isNotEmpty()
@@ -80,6 +85,11 @@ internal fun OutlinedTextField(
             }
         }
     )
+
+    if (hideKeyboard) {
+        focusManager.clearFocus()
+        onClearFocus()
+    }
 }
 
 @Preview
@@ -87,5 +97,11 @@ internal fun OutlinedTextField(
 internal fun PreviewOutlinedTextField() {
     var value by remember { mutableStateOf("") }
 
-    OutlinedTextField(value = value, onValueChange = { value = it }, placeholder = "Banana")
+    OutlinedTextField(
+        value = value,
+        onValueChange = { value = it },
+        placeholder = "Banana",
+        hideKeyboard = true,
+        onClearFocus = {}
+    )
 }
