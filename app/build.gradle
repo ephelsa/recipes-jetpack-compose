@@ -24,6 +24,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"https://demo8175392.mockable.io/\"")
+        }
+
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://demo8175392.mockable.io/\"")
         }
     }
     compileOptions {
@@ -34,6 +39,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        buildConfig true
         compose true
     }
     composeOptions {
@@ -47,7 +53,6 @@ android {
 }
 
 dependencies {
-
     implementation "androidx.core:core-ktx:${ktxCore}"
     implementation platform("org.jetbrains.kotlin:kotlin-bom:${kotlinBom}")
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleRuntimeKtx}"
@@ -59,6 +64,8 @@ dependencies {
     implementation 'androidx.compose.material3:material3'
     implementation "io.coil-kt:coil-compose:${coil}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:${viewModelCompose}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit}"
 
     testImplementation "junit:junit:${junit}"
 
