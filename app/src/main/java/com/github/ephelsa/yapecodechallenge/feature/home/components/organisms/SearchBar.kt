@@ -2,6 +2,12 @@ package com.github.ephelsa.yapecodechallenge.feature.home.components.organisms
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.InfiniteRepeatableSpec
+import androidx.compose.animation.core.KeyframesSpec
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.VectorConverter
+import androidx.compose.animation.core.animateValue
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,13 +34,27 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 @Composable
 internal fun <T : Any> SearchBar(
     modifier: Modifier = Modifier,
-    displayableContent: List<T>,
-    selectedFilterIndex: Int,
-    onClickFilter: ResultCallback<Int>,
+    filtersContent: List<T>,
+    selectedFilter: T,
+    onClickFilter: ResultCallback<T>,
+    placeholderList: List<String>,
     textValue: String,
     onTextChange: ResultCallback<String>,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
+
+    val infiniteTransition = rememberInfiniteTransition()
+    val placeholderAnimation = infiniteTransition.animateValue(
+        initialValue = 0,
+        targetValue = placeholderList.size,
+        typeConverter = Int.VectorConverter,
+        animationSpec = InfiniteRepeatableSpec(
+            animation = KeyframesSpec(
+                config = KeyframesSpec.KeyframesSpecConfig<Int>()
+                    .apply { durationMillis = 6_000 }),
+            repeatMode = RepeatMode.Restart,
+        )
+    )
 
     Column(
         modifier = modifier
@@ -52,6 +72,7 @@ internal fun <T : Any> SearchBar(
                 modifier = Modifier.fillMaxWidth(0.8f),
                 value = textValue,
                 onValueChange = onTextChange,
+                placeholder = placeholderList[placeholderAnimation.value]
             )
 
             Crossfade(targetState = isExpanded) {
@@ -79,8 +100,8 @@ internal fun <T : Any> SearchBar(
 
         AnimatedVisibility(visible = isExpanded) {
             SelectableItem(
-                displayableContent = displayableContent,
-                selectedIndex = selectedFilterIndex,
+                displayableContent = filtersContent,
+                selectedContent = selectedFilter,
                 onClickItem = onClickFilter,
             )
         }

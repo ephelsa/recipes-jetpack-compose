@@ -1,9 +1,12 @@
 package com.github.ephelsa.yapecodechallenge.feature.home.components.atoms
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,19 +29,22 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 internal fun OutlinedTextField(
     modifier: Modifier = Modifier,
     value: String,
+    placeholder: String,
     onValueChange: ResultCallback<String>,
 ) {
     var hasFocus by remember { mutableStateOf(false) }
 
-    val color = if (hasFocus || value.isNotEmpty()) {
+    val focused = hasFocus || value.isNotEmpty()
+    val color = if (focused) {
         MaterialTheme.colorScheme.primary
     } else {
         MaterialTheme.colorScheme.onSurface
     }
 
-    BasicTextField(modifier = modifier.onFocusChanged { focusState ->
-        hasFocus = focusState.hasFocus
-    },
+    BasicTextField(
+        modifier = modifier.onFocusChanged { focusState ->
+            hasFocus = focusState.hasFocus
+        },
         value = value,
         textStyle = TextStyle(
             textAlign = TextAlign.Center,
@@ -49,17 +55,31 @@ internal fun OutlinedTextField(
         onValueChange = onValueChange,
         singleLine = true,
         decorationBox = { textField ->
-            BoxWithConstraints(contentAlignment = Alignment.Center, modifier = modifier
-                .drawBehind {
-                    val strokeWidth = (2.dp * density).value
-                    val y = size.height - strokeWidth / 2
+            BoxWithConstraints(
+                contentAlignment = Alignment.Center,
+                modifier = modifier
+                    .drawBehind {
+                        val strokeWidth = (2.dp * density).value
+                        val y = size.height - strokeWidth / 2
 
-                    drawLine(
-                        color, Offset(0f, y), Offset(size.width, y), strokeWidth
-                    )
+                        drawLine(
+                            color, Offset(0f, y), Offset(size.width, y), strokeWidth
+                        )
+                    }
+                    .padding(vertical = 6.dp, horizontal = 6.dp)
+            ) {
+                Crossfade(targetState = !focused, animationSpec = tween(600)) {
+                    if (it) {
+                        Text(
+                            text = placeholder,
+                            style = TextStyle(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f))
+                        )
+                    }
                 }
-                .padding(vertical = 6.dp, horizontal = 6.dp)) { textField() }
-        })
+                textField()
+            }
+        }
+    )
 }
 
 @Preview
@@ -67,5 +87,5 @@ internal fun OutlinedTextField(
 internal fun PreviewOutlinedTextField() {
     var value by remember { mutableStateOf("") }
 
-    OutlinedTextField(value = value, onValueChange = { value = it })
+    OutlinedTextField(value = value, onValueChange = { value = it }, placeholder = "Banana")
 }

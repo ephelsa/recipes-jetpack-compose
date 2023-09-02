@@ -12,8 +12,8 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 @Composable
 internal fun <T : Any> SelectableItem(
     displayableContent: List<T>,
-    selectedIndex: Int?,
-    onClickItem: ResultCallback<Int>,
+    selectedContent: T?,
+    onClickItem: ResultCallback<T>,
 ) {
     val totalItems = displayableContent.size
 
@@ -27,8 +27,8 @@ internal fun <T : Any> SelectableItem(
             SelectableText(
                 modifier = Modifier.padding(start = marginLeft, end = marginRight),
                 text = item.toString(),
-                isSelected = selectedIndex == index,
-                onClick = { onClickItem(index) }
+                isSelected = selectedContent == item,
+                onClick = { onClickItem(item) }
             )
         }
     }
@@ -42,7 +42,7 @@ internal fun PreviewSelectableItem() {
 
     SelectableItem(
         displayableContent = list,
-        selectedIndex = null,
+        selectedContent = null,
         onClickItem = {
             print("Item -> $it")
         }

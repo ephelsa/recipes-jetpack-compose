@@ -1,5 +1,7 @@
 package com.github.ephelsa.yapecodechallenge.feature.home.components.templates
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -23,11 +25,13 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 @Composable
 internal fun <Filter : Any> HomeTemplate(
     filterOptions: List<Filter>,
-    selectedFilterIndex: Int,
-    onClickFilter: ResultCallback<Int>,
+    selectedFilter: Filter,
+    onClickFilter: ResultCallback<Filter>,
+    searchPlaceholderList: List<String>,
     searchValue: String,
     onSearchChange: ResultCallback<String>,
     recipes: List<Recipe>,
+    areRecipesLoading: Boolean,
     onRecipeClick: ResultCallback<Recipe>
 ) {
     BoxWithConstraints(
@@ -38,13 +42,16 @@ internal fun <Filter : Any> HomeTemplate(
         Surface {
             Scaffold(
                 topBar = {
-                    SearchBar(
-                        displayableContent = filterOptions,
-                        selectedFilterIndex = selectedFilterIndex,
-                        onClickFilter = onClickFilter,
-                        textValue = searchValue,
-                        onTextChange = onSearchChange,
-                    )
+                    AnimatedVisibility(visible = !areRecipesLoading, enter = expandVertically()) {
+                        SearchBar(
+                            filtersContent = filterOptions,
+                            selectedFilter = selectedFilter,
+                            onClickFilter = onClickFilter,
+                            textValue = searchValue,
+                            onTextChange = onSearchChange,
+                            placeholderList = searchPlaceholderList
+                        )
+                    }
                 },
                 content = { it ->
                     Column(
@@ -57,7 +64,7 @@ internal fun <Filter : Any> HomeTemplate(
                     ) {
                         RecipesGrid(
                             recipes = recipes,
-                            areLoading = recipes.isEmpty(),
+                            areLoading = areRecipesLoading,
                             onRecipeClick = onRecipeClick,
                             loadingItemSize = 10
                         )
