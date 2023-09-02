@@ -8,6 +8,6 @@ internal class ByName(
 ) : FindRecipeStrategy {
 
     override fun find(): List<Recipe> {
-        return recipes.filter { it.name.contains(query) }
+        return recipes.filter { it.name.contains(query, ignoreCase = true) }
     }
 }
