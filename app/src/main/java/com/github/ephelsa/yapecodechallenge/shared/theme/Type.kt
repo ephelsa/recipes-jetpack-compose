@@ -1,4 +1,4 @@
-package com.github.ephelsa.yapecodechallenge.ui.theme
+package com.github.ephelsa.yapecodechallenge.shared.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

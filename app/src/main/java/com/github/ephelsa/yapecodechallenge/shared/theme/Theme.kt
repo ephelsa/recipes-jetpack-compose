@@ -1,4 +1,4 @@
-package com.github.ephelsa.yapecodechallenge.ui.theme
+package com.github.ephelsa.yapecodechallenge.shared.theme
 
 import android.app.Activity
 import android.os.Build
@@ -18,13 +18,15 @@ import androidx.core.view.WindowCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    onSurface = Grey,
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
+    onSurface = Grey,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

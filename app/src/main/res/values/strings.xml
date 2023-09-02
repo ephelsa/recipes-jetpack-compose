@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Yape Code Challenge</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_expand_filters">Expand filters</string>
+    <string name="cd_collapse_filters">Collapse filters</string>
 </resources>
