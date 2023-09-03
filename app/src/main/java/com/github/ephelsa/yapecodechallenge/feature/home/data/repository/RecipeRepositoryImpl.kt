@@ -4,7 +4,7 @@ import com.github.ephelsa.yapecodechallenge.feature.home.data.datasource.Recipes
 import com.github.ephelsa.yapecodechallenge.feature.home.data.model.Recipe
 import kotlinx.coroutines.delay
 
-internal class RecipeRepositoryImpl(
+class RecipeRepositoryImpl(
     private val recipesDatasource: RecipesDatasource,
 ) : RecipeRepository {
     override suspend fun fetchRecipesList(): Result<List<Recipe>> = try {

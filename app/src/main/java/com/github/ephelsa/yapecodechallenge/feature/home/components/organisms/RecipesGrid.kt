@@ -13,7 +13,7 @@ import com.github.ephelsa.yapecodechallenge.feature.home.data.model.Recipe
 import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 
 @Composable
-internal fun RecipesGrid(
+fun RecipesGrid(
     recipes: List<Recipe>?,
     loadingItemSize: Int,
     onRecipeClick: ResultCallback<Recipe>,

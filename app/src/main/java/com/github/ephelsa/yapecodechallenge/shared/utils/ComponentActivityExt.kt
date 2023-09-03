@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionContext
 import com.github.ephelsa.yapecodechallenge.shared.theme.YapeCodeChallengeTheme
 
-internal fun ComponentActivity.setYapeContent(
+fun ComponentActivity.setYapeContent(
     parent: CompositionContext? = null,
     content: @Composable VoidCallback
 ) {

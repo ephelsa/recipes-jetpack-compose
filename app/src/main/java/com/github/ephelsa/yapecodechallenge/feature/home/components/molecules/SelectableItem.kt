@@ -10,7 +10,7 @@ import com.github.ephelsa.yapecodechallenge.feature.home.components.atoms.Select
 import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 
 @Composable
-internal fun <T : Any> SelectableItem(
+fun <T : Any> SelectableItem(
     displayableContent: List<T>,
     selectedContent: T?,
     onClickItem: ResultCallback<T>,

@@ -1,7 +1,7 @@
 package com.github.ephelsa.yapecodechallenge.shared.utils
 
-internal object NavConst {
+object NavConst {
     object Details {
-        val RecipeResumeKey = "recipe_resume"
+        const val RecipeResumeKey = "recipe_resume"
     }
 }

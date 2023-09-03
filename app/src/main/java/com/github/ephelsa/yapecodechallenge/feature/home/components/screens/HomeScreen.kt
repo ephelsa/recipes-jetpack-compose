@@ -10,7 +10,7 @@ import com.github.ephelsa.yapecodechallenge.feature.home.data.model.Recipe
 import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 
 @Composable
-internal fun HomeScreen(
+fun HomeScreen(
     viewModel: HomeViewModel,
     onRecipeClick: ResultCallback<Recipe>,
 ) {

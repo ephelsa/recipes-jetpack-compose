@@ -20,7 +20,7 @@ import com.github.ephelsa.yapecodechallenge.shared.theme.Colors
 import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 
 @Composable
-internal fun <T> LoadableContent(
+fun <T> LoadableContent(
     modifier: Modifier = Modifier,
     targetData: T?,
     content: @Composable ResultCallback<T>,
@@ -38,7 +38,7 @@ internal fun <T> LoadableContent(
 }
 
 @Composable
-internal fun ShimmerLoader(modifier: Modifier) {
+fun ShimmerLoader(modifier: Modifier) {
     val infinityTransition = rememberInfiniteTransition()
 
     val animation = infinityTransition.animateFloat(

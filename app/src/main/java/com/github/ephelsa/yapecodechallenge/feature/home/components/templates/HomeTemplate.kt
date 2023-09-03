@@ -29,7 +29,7 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun <Filter : Any> HomeTemplate(
+fun <Filter : Any> HomeTemplate(
     filterOptions: List<Filter>,
     selectedFilter: Filter,
     onClickFilter: ResultCallback<Filter>,

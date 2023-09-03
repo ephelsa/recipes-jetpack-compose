@@ -33,7 +33,7 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
-internal fun <T : Any> SearchBar(
+fun <T : Any> SearchBar(
     modifier: Modifier = Modifier,
     filtersContent: List<T>,
     selectedFilter: T,

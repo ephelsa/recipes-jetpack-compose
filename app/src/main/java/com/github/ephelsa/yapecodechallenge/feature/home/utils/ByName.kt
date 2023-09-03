@@ -2,7 +2,7 @@ package com.github.ephelsa.yapecodechallenge.feature.home.utils
 
 import com.github.ephelsa.yapecodechallenge.feature.home.data.model.Recipe
 
-internal class ByName(
+class ByName(
     private val query: String,
     private val recipes: List<Recipe>,
 ) : FindRecipeStrategy {

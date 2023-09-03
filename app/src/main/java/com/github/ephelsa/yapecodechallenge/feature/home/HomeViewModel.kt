@@ -12,7 +12,7 @@ import com.github.ephelsa.yapecodechallenge.feature.home.utils.Options
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-internal class HomeViewModel(
+class HomeViewModel(
     private val recipeRepository: RecipeRepository,
 ) : ViewModel() {
 

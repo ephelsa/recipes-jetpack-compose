@@ -4,4 +4,17 @@
     <!-- Content Descriptions -->
     <string name="cd_expand_filters">Expand filters</string>
     <string name="cd_collapse_filters">Collapse filters</string>
+    <string name="cd_navigate_back">Navigate back</string>
+
+    <!-- Button -->
+    <string name="btn_find_location">Find Location</string>
+    <string name="btn_retry">Retry</string>
+
+    <!-- Label -->
+    <string name="label_recipe">Recipe</string>
+    <string name="label_error">Error</string>
+
+    <!-- Error -->
+    <string name="error_recipe_not_passed">Error loading the content. Please, select again.</string>
+    <string name="error_something_went_wrong">Something went wrong loading the content.</string>
 </resources>

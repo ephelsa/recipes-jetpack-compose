@@ -28,7 +28,7 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
-internal fun OutlinedTextField(
+fun OutlinedTextField(
     modifier: Modifier = Modifier,
     value: String,
     placeholder: String,

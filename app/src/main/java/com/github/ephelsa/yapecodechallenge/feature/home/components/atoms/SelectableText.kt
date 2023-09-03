@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
-internal fun SelectableText(
+fun SelectableText(
     modifier: Modifier = Modifier,
     text: String,
     isSelected: Boolean,

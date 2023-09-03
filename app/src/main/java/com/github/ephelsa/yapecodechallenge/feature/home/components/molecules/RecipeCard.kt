@@ -27,7 +27,7 @@ import com.github.ephelsa.yapecodechallenge.shared.theme.Colors
 import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
-internal fun RecipeCard(
+fun RecipeCard(
     modifier: Modifier = Modifier,
     recipe: Recipe?,
     onClick: VoidCallback?,
