@@ -12,6 +12,7 @@
 
     <!-- Label -->
     <string name="label_recipe">Recipe</string>
+    <string name="label_location">Location</string>
     <string name="label_error">Error</string>
 
     <!-- Error -->

@@ -29,7 +29,17 @@ class DetailsActivity : ComponentActivity() {
         handleOnNullRecipeReceiveError()
 
         setYapeContent {
-            RecipeDetailsScreen(viewModel = viewModel, onNavigateBackClick = { finish() })
+            RecipeDetailsScreen(
+                viewModel = viewModel,
+                onNavigateBackClick = { finish() },
+                onMapClick = {
+                    Toast.makeText(
+                        this,
+                        "${resources.getString(R.string.label_location)}: $it",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
         }
     }
 

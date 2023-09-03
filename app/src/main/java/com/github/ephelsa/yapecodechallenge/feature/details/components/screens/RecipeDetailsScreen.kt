@@ -13,12 +13,14 @@ import com.github.ephelsa.yapecodechallenge.BuildConfig
 import com.github.ephelsa.yapecodechallenge.R
 import com.github.ephelsa.yapecodechallenge.feature.details.DetailsViewModel
 import com.github.ephelsa.yapecodechallenge.feature.details.components.templates.RecipeDetailsTemplate
+import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
 fun RecipeDetailsScreen(
     viewModel: DetailsViewModel,
     onNavigateBackClick: VoidCallback,
+    onMapClick: ResultCallback<String?>,
 ) {
     val onCurrentRecipe by viewModel.onCurrentRecipe.collectAsState()
     val onRecipeExtraInfo by viewModel.onRecipeExtraInfo.collectAsState()
@@ -30,9 +32,7 @@ fun RecipeDetailsScreen(
             recipe = onCurrentRecipe!!,
             recipeExtraInfo = onRecipeExtraInfo?.getOrNull(),
             onNavigateBackClick = onNavigateBackClick,
-            onMapClick = {
-                // TODO
-            }
+            onMapClick = { onMapClick(onRecipeExtraInfo?.getOrNull()?.location) }
         )
     }
 
