@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.github.ephelsa.yapecodechallenge.feature.home.components.organisms.RecipesGrid
@@ -37,8 +36,7 @@ internal fun <Filter : Any> HomeTemplate(
     searchPlaceholderList: List<String>,
     searchValue: String,
     onSearchChange: ResultCallback<String>,
-    recipes: List<Recipe>,
-    areRecipesLoading: Boolean,
+    recipes: List<Recipe>?,
     onRecipeClick: ResultCallback<Recipe>
 ) {
     var onHideKeyboard by remember { mutableStateOf(false) }
@@ -52,6 +50,8 @@ internal fun <Filter : Any> HomeTemplate(
             onClick = { onHideKeyboard = true }
         )
 
+    val isContentLoading = recipes == null
+
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -61,7 +61,7 @@ internal fun <Filter : Any> HomeTemplate(
             Scaffold(
                 topBar = {
                     AnimatedVisibility(
-                        visible = !areRecipesLoading,
+                        visible = !isContentLoading,
                         enter = expandVertically()
                     ) {
                         SearchBar(
@@ -89,7 +89,6 @@ internal fun <Filter : Any> HomeTemplate(
                     ) {
                         RecipesGrid(
                             recipes = recipes,
-                            areLoading = areRecipesLoading,
                             onRecipeClick = onRecipeClick,
                             loadingItemSize = 10
                         )

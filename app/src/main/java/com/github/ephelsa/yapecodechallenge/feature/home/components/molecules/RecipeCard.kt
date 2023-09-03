@@ -21,18 +21,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.github.ephelsa.yapecodechallenge.feature.home.components.atoms.LoadableContent
 import com.github.ephelsa.yapecodechallenge.feature.home.data.model.Recipe
+import com.github.ephelsa.yapecodechallenge.shared.components.atoms.LoadableContent
 import com.github.ephelsa.yapecodechallenge.shared.theme.Colors
 import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
 
 @Composable
 internal fun RecipeCard(
     modifier: Modifier = Modifier,
-    isLoading: Boolean,
     recipe: Recipe?,
     onClick: VoidCallback?,
 ) {
+    val isLoading = recipe == null
+
     Card(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 8.dp)
@@ -42,15 +43,15 @@ internal fun RecipeCard(
     ) {
         LoadableContent(
             modifier = modifier,
-            isLoading = isLoading
+            targetData = recipe,
         ) {
             Box(
                 contentAlignment = Alignment.BottomCenter
             ) {
                 AsyncImage(
                     modifier = modifier,
-                    model = recipe?.imagePath,
-                    contentDescription = recipe?.name,
+                    model = it.imagePath,
+                    contentDescription = it.name,
                     contentScale = ContentScale.Crop,
                 )
                 Column(
@@ -63,7 +64,7 @@ internal fun RecipeCard(
                 ) {
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = recipe!!.name,
+                        text = it.name,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
                         style = MaterialTheme.typography.titleMedium,
@@ -79,7 +80,6 @@ internal fun RecipeCard(
 @Composable
 internal fun PreviewRecipeCard() {
     RecipeCard(
-        isLoading = false,
         recipe = Recipe(
             id = "1",
             name = "Banana Banana Bread",

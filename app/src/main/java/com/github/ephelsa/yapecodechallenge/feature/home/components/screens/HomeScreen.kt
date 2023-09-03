@@ -37,8 +37,7 @@ internal fun HomeScreen(
             searchPlaceholderList = viewModel.placeholderOptions,
             searchValue = onSearchText,
             onSearchChange = { viewModel.changeSearchQuery(it) },
-            recipes = onRecipesSearchResult ?: onRecipesResult?.getOrNull() ?: listOf(),
-            areRecipesLoading = onRecipesLoading,
+            recipes = onRecipesSearchResult ?: onRecipesResult?.getOrNull(),
             onRecipeClick = onRecipeClick
         )
     }

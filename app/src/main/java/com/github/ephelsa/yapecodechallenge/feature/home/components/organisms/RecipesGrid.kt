@@ -14,8 +14,7 @@ import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 
 @Composable
 internal fun RecipesGrid(
-    recipes: List<Recipe>,
-    areLoading: Boolean,
+    recipes: List<Recipe>?,
     loadingItemSize: Int,
     onRecipeClick: ResultCallback<Recipe>,
 ) {
@@ -26,23 +25,22 @@ internal fun RecipesGrid(
                 .height(180.dp)
                 .fillMaxWidth()
 
-            if (areLoading) {
+            if (recipes == null) {
                 items(loadingItemSize) {
                     RecipeCard(
                         modifier = cardModifier,
-                        isLoading = true,
                         recipe = null,
                         onClick = null
                     )
                 }
-            }
-            items(recipes) { recipe ->
-                RecipeCard(
-                    modifier = cardModifier,
-                    isLoading = areLoading,
-                    recipe = recipe,
-                    onClick = { onRecipeClick(recipe) }
-                )
+            } else {
+                items(recipes) { recipe ->
+                    RecipeCard(
+                        modifier = cardModifier,
+                        recipe = recipe,
+                        onClick = { onRecipeClick(recipe) }
+                    )
+                }
             }
         },
     )

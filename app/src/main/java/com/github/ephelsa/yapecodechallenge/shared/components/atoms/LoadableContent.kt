@@ -1,4 +1,4 @@
-package com.github.ephelsa.yapecodechallenge.feature.home.components.atoms
+package com.github.ephelsa.yapecodechallenge.shared.components.atoms
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -17,22 +17,22 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ephelsa.yapecodechallenge.shared.theme.Colors
-import com.github.ephelsa.yapecodechallenge.shared.utils.VoidCallback
+import com.github.ephelsa.yapecodechallenge.shared.utils.ResultCallback
 
 @Composable
-internal fun LoadableContent(
+internal fun <T> LoadableContent(
     modifier: Modifier = Modifier,
-    isLoading: Boolean,
-    content: @Composable VoidCallback,
+    targetData: T?,
+    content: @Composable ResultCallback<T>,
 ) {
     BoxWithConstraints(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        if (isLoading) {
+        if (targetData == null) {
             ShimmerLoader(modifier)
         } else {
-            content()
+            content(targetData)
         }
     }
 }
@@ -63,7 +63,7 @@ internal fun ShimmerLoader(modifier: Modifier) {
 @Preview
 @Composable
 internal fun PreviewLoadableText() {
-    LoadableContent(isLoading = true) {
-        Text(text = "Example")
+    LoadableContent(targetData = "Example") {
+        Text(text = it)
     }
 }
