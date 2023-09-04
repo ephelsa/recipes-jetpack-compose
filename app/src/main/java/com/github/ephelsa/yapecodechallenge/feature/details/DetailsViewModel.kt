@@ -37,9 +37,9 @@ class DetailsViewModel(
 
         if (onCurrentRecipe.value?.id.isNullOrEmpty()) {
             cancel("ID is null")
+        } else {
+            val result = detailsRepository.getRecipeExtraInfo(onCurrentRecipe.value!!.id)
+            onRecipeExtraInfo.value = result
         }
-
-        val result = detailsRepository.getRecipeExtraInfo(onCurrentRecipe.value!!.id)
-        onRecipeExtraInfo.value = result
     }
 }
